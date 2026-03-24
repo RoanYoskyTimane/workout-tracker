@@ -11,12 +11,14 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 import org.springframework.stereotype.Component;
 
 @Component
-@Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+@Mapper(componentModel = "spring", 
+        nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE,
+        uses = WorkoutExerciseMapper.class)
 public interface WorkoutMapper {
     @Mapping(target = "userId", source = "user.id")
-    @Mapping(target = "name", source="name")
     WorkoutDto toDto(Workout workout);
 
+    @Mapping(target = "exercises", source = "exercises")
     Workout toEntity(CreateWorkoutDto createWorkoutDto);
 
 
