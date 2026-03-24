@@ -8,6 +8,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -36,4 +38,7 @@ public class Exercise {
     @Column(name = "muscle_group", length = 50)
     @Enumerated(EnumType.STRING)
     private MuscleGroupType muscleGroup;
+
+    @OneToMany(mappedBy = "exercise", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<WorkoutExercise> workoutExercises = new ArrayList<>();
 }

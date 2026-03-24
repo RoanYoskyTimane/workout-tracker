@@ -11,6 +11,8 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Getter
@@ -42,4 +44,7 @@ public class Workout {
     @Enumerated(EnumType.STRING)
     @Column(name = "status", length = 50)
     private Status status;
+
+    @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<WorkoutExercise> exercises = new ArrayList<>();
 }
