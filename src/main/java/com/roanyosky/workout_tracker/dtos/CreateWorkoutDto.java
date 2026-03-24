@@ -3,7 +3,9 @@ package com.roanyosky.workout_tracker.dtos;
 import com.roanyosky.workout_tracker.entities.enums.Status;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
+import java.util.List;
 
 @Data
 public class CreateWorkoutDto {
@@ -14,4 +16,6 @@ public class CreateWorkoutDto {
 
     @NotNull
     private Status status;
+
+    private List<CreateWorkoutExerciseDto> exercises;
 }
