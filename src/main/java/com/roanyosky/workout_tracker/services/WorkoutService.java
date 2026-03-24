@@ -28,17 +28,24 @@ public class WorkoutService {
     }
 
     public WorkoutDto createWorkout(UUID authenticatedUserId, CreateWorkoutDto createWorkoutDto){
-        Workout workout = workoutMapper.toEntity(createWorkoutDto);
-
         User user = userRepository.findById(authenticatedUserId).orElseThrow(()-> new EntityNotFoundException("User not found"));
-
+        
+        Workout workout = workoutMapper.toEntity(createWorkoutDto);
         workout.setUser(user);
+        
+        // Ensure back-references for exercises are set correctly
+        if (workout.getExercises() != null) {
+            workout.getExercises().forEach(exercise -> exercise.setWorkout(workout));
+        }
 
         return workoutMapper.toDto(workoutRepository.save(workout));
     }
 
     public WorkoutDto updateWorkoutName(UUID autheticatedUserId, String name, UpdateWorkoutDto updateWorkoutDto){
         Workout workout = workoutRepository.findByNameAndUserId(name, autheticatedUserId);
+        if (workout == null) {
+            throw new EntityNotFoundException("Workout not found with name: " + name);
+        }
 
         workoutMapper.updateWorkout(updateWorkoutDto, workout);
 
@@ -47,6 +54,9 @@ public class WorkoutService {
 
     public void deleteWorkoutName(UUID autheticatedUserId, String name){
         Workout workout = workoutRepository.findByNameAndUserId(name, autheticatedUserId);
+        if (workout == null) {
+            throw new EntityNotFoundException("Workout not found with name: " + name);
+        }
 
         workoutRepository.delete(workout);
     }
