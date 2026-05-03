@@ -45,6 +45,9 @@ public class Workout {
     @Column(name = "status", length = 50)
     private Status status;
 
+    @Column(name = "comments")
+    private String comments;
+
     @OneToMany(mappedBy = "workout", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WorkoutExercise> exercises = new ArrayList<>();
 }
