@@ -17,5 +17,7 @@ public class CreateWorkoutDto {
     @NotNull
     private Status status;
 
+    private String comments;
+
     private List<CreateWorkoutExerciseDto> exercises;
 }

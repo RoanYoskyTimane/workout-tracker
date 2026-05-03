@@ -13,5 +13,6 @@ public class WorkoutDto {
     private String name;
     private Instant scheduledDate;
     private Status status;
+    private String comments;
     private java.util.List<WorkoutExerciseDto> exercises;
 }

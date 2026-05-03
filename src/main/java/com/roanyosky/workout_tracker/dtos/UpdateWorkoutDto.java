@@ -11,4 +11,5 @@ public class UpdateWorkoutDto {
     private String name;
 
     private Status status;
+    private String comments;
 }
