@@ -24,7 +24,7 @@ public class WorkoutService {
     private final WorkoutMapper workoutMapper;
 
     public List<WorkoutDto> allWorkouts(UUID authenticatedUserId){
-        return workoutRepository.findAllByUserId(authenticatedUserId).stream().map(workoutMapper::toDto).toList();
+        return workoutRepository.findAllByUserIdOrderByScheduledDateAsc(authenticatedUserId).stream().map(workoutMapper::toDto).toList();
     }
 
     public WorkoutDto createWorkout(UUID authenticatedUserId, CreateWorkoutDto createWorkoutDto){
