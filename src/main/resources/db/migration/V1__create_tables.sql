@@ -20,6 +20,7 @@ CREATE TABLE workouts (
                           user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
                           name VARCHAR(255) NOT NULL,
                           scheduled_date TIMESTAMP NOT NULL,
+                          comments TEXT,
                           status VARCHAR(50) DEFAULT 'pending' CHECK (status IN ('pending', 'active', 'done'))
 );
 
