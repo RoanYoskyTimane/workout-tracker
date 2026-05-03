@@ -8,5 +8,5 @@ import java.util.UUID;
 
 public interface WorkoutRepository extends JpaRepository<Workout, UUID> {
     Workout findByNameAndUserId(String name, UUID userId);
-    List<Workout> findAllByUserId(UUID userId);
+    List<Workout> findAllByUserIdOrderByScheduledDateAsc(UUID userId);
 }
