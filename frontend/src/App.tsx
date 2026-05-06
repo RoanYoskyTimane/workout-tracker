@@ -1,6 +1,10 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Dashboard from './pages/Dashboard';
+import Exercises from './pages/Exercises';
+import Workouts from './pages/Workouts';
+import DashboardLayout from './components/DashboardLayout';
 
 function App() {
   return (
@@ -9,8 +13,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Navigate to="/login" replace />} />
-        {/* Placeholder for protected route */}
-        <Route path="/dashboard" element={<div style={{ padding: '2rem' }}><h1>Dashboard</h1><p>Welcome to Kinetic Performance Dashboard!</p></div>} />
+        
+        <Route path="/dashboard" element={<DashboardLayout><Dashboard /></DashboardLayout>} />
+        <Route path="/exercises" element={<DashboardLayout><Exercises /></DashboardLayout>} />
+        <Route path="/workouts" element={<DashboardLayout><Workouts /></DashboardLayout>} />
       </Routes>
     </Router>
   );
