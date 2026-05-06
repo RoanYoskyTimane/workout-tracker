@@ -16,7 +16,7 @@ const Login: React.FC = () => {
     e.preventDefault();
     setLoading(true);
     setError('');
-    
+
     try {
       const data = await authApi.login({ email, password });
       localStorage.setItem('token', data.token);
@@ -45,7 +45,7 @@ const Login: React.FC = () => {
       </div>
 
       <div className="auth-form-section">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -65,9 +65,9 @@ const Login: React.FC = () => {
               <label htmlFor="email">Email Address</label>
               <div className="input-wrapper">
                 <Mail className="input-icon" size={20} />
-                <input 
+                <input
                   id="email"
-                  type="email" 
+                  type="email"
                   placeholder="name@kinetic.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -83,9 +83,9 @@ const Login: React.FC = () => {
               </div>
               <div className="input-wrapper">
                 <Lock className="input-icon" size={20} />
-                <input 
+                <input
                   id="password"
-                  type="password" 
+                  type="password"
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}

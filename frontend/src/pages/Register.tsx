@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Mail, Lock, ArrowRight, Activity, User } from 'lucide-react';
+import { Mail, Lock, ArrowRight, Activity } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { authApi } from '../lib/api';
