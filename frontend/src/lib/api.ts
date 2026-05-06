@@ -30,4 +30,30 @@ export const authApi = {
   },
 };
 
+export const exerciseApi = {
+  getAll: async () => {
+    const response = await api.get('/exercises');
+    return response.data;
+  },
+  create: async (data: any) => {
+    const response = await api.post('/exercises', data);
+    return response.data;
+  },
+};
+
+export const workoutApi = {
+  getAll: async () => {
+    const response = await api.get('/workouts');
+    return response.data;
+  },
+  create: async (data: any) => {
+    const response = await api.post('/workouts', data);
+    return response.data;
+  },
+  addExercise: async (data: any) => {
+    const response = await api.post('/workouts-exercises', data);
+    return response.data;
+  },
+};
+
 export default api;
