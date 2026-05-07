@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Plus, Search, Dumbbell, Info, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { exerciseApi } from '../lib/api';
+import './Exercises.css';
 
 const Exercises: React.FC = () => {
   const [exercises, setExercises] = useState<any[]>([]);
@@ -53,11 +54,11 @@ const Exercises: React.FC = () => {
   );
 
   return (
-    <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
+    <div className="exercises-container">
+      <div className="exercises-header">
         <div>
-          <h1 style={{ fontSize: '2rem', fontWeight: 700 }}>Exercise Library</h1>
-          <p style={{ color: 'var(--text-muted)' }}>Browse and manage your exercises.</p>
+          <h1>Exercise Library</h1>
+          <p className="text-muted">Browse and manage your exercises.</p>
         </div>
         <button className="btn-primary" onClick={() => setShowCreateModal(true)} style={{ width: 'auto', padding: '0.75rem 1.5rem' }}>
           <Plus size={20} />
@@ -65,57 +66,40 @@ const Exercises: React.FC = () => {
         </button>
       </div>
 
-      <div className="glass" style={{ padding: '0.5rem 1rem', borderRadius: 'var(--radius-md)', display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '2rem' }}>
-        <Search size={20} color="var(--text-muted)" />
+      <div className="glass search-bar">
+        <Search size={20} className="text-muted" />
         <input 
           type="text" 
           placeholder="Search by name or muscle group..." 
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          style={{ border: 'none', background: 'transparent', width: '100%', padding: '0.75rem', fontSize: '1rem' }}
+          className="search-input"
         />
       </div>
 
       {loading ? (
-        <div style={{ textAlign: 'center', padding: '5rem' }}>Loading exercises...</div>
+        <div className="empty-state">Loading exercises...</div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: '1.5rem' }}>
+        <div className="exercises-grid">
           {filteredExercises.map((exercise, i) => (
             <motion.div
               key={exercise.id}
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: i * 0.05 }}
-              className="glass"
-              style={{ padding: '1.5rem', borderRadius: 'var(--radius-lg)', position: 'relative', overflow: 'hidden' }}
+              className="glass exercise-card"
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
-                <div style={{ 
-                  width: '40px', 
-                  height: '40px', 
-                  borderRadius: 'var(--radius-sm)', 
-                  backgroundColor: 'rgba(129, 166, 198, 0.1)', 
-                  display: 'flex', 
-                  alignItems: 'center', 
-                  justifyContent: 'center' 
-                }}>
+              <div className="exercise-card-header">
+                <div className="exercise-icon-wrapper">
                   <Dumbbell size={20} color="var(--primary)" />
                 </div>
-                <span style={{ 
-                  fontSize: '0.75rem', 
-                  fontWeight: 700, 
-                  textTransform: 'uppercase', 
-                  padding: '0.25rem 0.75rem', 
-                  borderRadius: '100px', 
-                  backgroundColor: 'var(--accent)',
-                  color: 'white'
-                }}>
+                <span className="exercise-muscle-tag">
                   {exercise.muscleGroup}
                 </span>
               </div>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: 700, marginBottom: '0.5rem' }}>{exercise.name}</h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>{exercise.description}</p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+              <h3 className="exercise-name">{exercise.name}</h3>
+              <p className="exercise-description">{exercise.description}</p>
+              <div className="exercise-meta">
                 <Info size={14} />
                 <span>Category: {exercise.category}</span>
               </div>
@@ -127,32 +111,23 @@ const Exercises: React.FC = () => {
       {/* Create Modal */}
       <AnimatePresence>
         {showCreateModal && (
-          <div style={{ 
-            position: 'fixed', 
-            inset: 0, 
-            zIndex: 1000, 
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center',
-            padding: '1rem'
-          }}>
+          <div className="modal-overlay">
             <motion.div 
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setShowCreateModal(false)}
-              style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.4)', backdropFilter: 'blur(4px)' }} 
+              className="modal-backdrop"
             />
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="auth-card"
-              style={{ position: 'relative', zIndex: 1001, maxWidth: '500px' }}
+              className="auth-card modal-content"
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-                <h2 style={{ fontSize: '1.5rem', fontWeight: 700 }}>New Exercise</h2>
-                <button onClick={() => setShowCreateModal(false)} style={{ background: 'transparent' }}><X size={24} /></button>
+              <div className="modal-header">
+                <h2>New Exercise</h2>
+                <button onClick={() => setShowCreateModal(false)} className="close-btn"><X size={24} /></button>
               </div>
 
               <form onSubmit={handleCreate}>
@@ -165,7 +140,7 @@ const Exercises: React.FC = () => {
                       value={name} 
                       onChange={(e) => setName(e.target.value)} 
                       required 
-                      style={{ paddingLeft: '1rem' }}
+                      className="name-input"
                     />
                   </div>
                 </div>
@@ -178,31 +153,18 @@ const Exercises: React.FC = () => {
                       value={description} 
                       onChange={(e) => setDescription(e.target.value)} 
                       required 
-                      style={{ 
-                        width: '100%', 
-                        padding: '1rem', 
-                        borderRadius: 'var(--radius-md)', 
-                        border: '1px solid #E0E0E0',
-                        minHeight: '100px',
-                        fontFamily: 'inherit'
-                      }}
+                      className="textarea-input"
                     />
                   </div>
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                <div className="form-grid-2">
                   <div className="input-group">
                     <label>Category</label>
                     <select 
                       value={category} 
                       onChange={(e) => setCategory(e.target.value)}
-                      style={{ 
-                        width: '100%', 
-                        padding: '0.75rem', 
-                        borderRadius: 'var(--radius-md)', 
-                        border: '1px solid #E0E0E0',
-                        background: 'white'
-                      }}
+                      className="select-input"
                     >
                       <option value="strength">Strength</option>
                       <option value="cardio">Cardio</option>
@@ -214,13 +176,7 @@ const Exercises: React.FC = () => {
                     <select 
                       value={muscleGroup} 
                       onChange={(e) => setMuscleGroup(e.target.value)}
-                      style={{ 
-                        width: '100%', 
-                        padding: '0.75rem', 
-                        borderRadius: 'var(--radius-md)', 
-                        border: '1px solid #E0E0E0',
-                        background: 'white'
-                      }}
+                      className="select-input"
                     >
                       <option value="chest">Chest</option>
                       <option value="back">Back</option>
