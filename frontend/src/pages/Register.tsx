@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { authApi } from '../lib/api';
 import authHeroImg from '../assets/auth-hero.png';
+import './Register.css';
 
 const Register: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -38,13 +39,13 @@ const Register: React.FC = () => {
       <div className="auth-hero">
         <img src={authHeroImg} alt="Kinetic Performance" />
         <div className="auth-hero-overlay"></div>
-        <div style={{ position: 'absolute', bottom: '3rem', left: '3rem', color: 'white' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+        <div className="hero-content">
+          <div className="hero-logo">
             <Activity size={32} color="var(--primary-light)" />
-            <span style={{ fontSize: '1.5rem', fontWeight: 800, letterSpacing: '0.1em' }}>KINETIC</span>
+            <span className="hero-logo-text">KINETIC</span>
           </div>
-          <h1 style={{ fontSize: '3rem', fontWeight: 700, lineHeight: 1.1 }}>JOIN THE<br />REVOLUTION</h1>
-          <p style={{ marginTop: '1rem', opacity: 0.8, fontSize: '1.1rem' }}>Start tracking your progress with precision.</p>
+          <h1 className="hero-title">JOIN THE<br />REVOLUTION</h1>
+          <p className="hero-subtitle">Start tracking your progress with precision.</p>
         </div>
       </div>
 
@@ -55,13 +56,13 @@ const Register: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="auth-card"
         >
-          <div style={{ marginBottom: '2.5rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', marginBottom: '1.5rem', borderBottom: '1px solid #E0E0E0' }}>
-              <Link to="/login" style={{ paddingBottom: '0.75rem', color: 'var(--text-muted)', fontWeight: 500 }}>Login</Link>
-              <span style={{ paddingBottom: '0.75rem', borderBottom: '2px solid var(--primary)', fontWeight: 600 }}>Sign Up</span>
+          <div className="auth-header">
+            <div className="auth-tabs">
+              <Link to="/login" className="auth-tab">Login</Link>
+              <span className="auth-tab active">Sign Up</span>
             </div>
-            <h2 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '0.5rem' }}>Create Account.</h2>
-            <p style={{ color: 'var(--text-muted)' }}>Join our elite community of performers.</p>
+            <h2 className="auth-title">Create Account.</h2>
+            <p className="auth-description">Join our elite community of performers.</p>
           </div>
 
           <form onSubmit={handleSubmit}>
@@ -110,7 +111,7 @@ const Register: React.FC = () => {
               </div>
             </div>
 
-            {error && <p style={{ color: 'var(--error)', fontSize: '0.85rem', marginBottom: '1rem' }}>{error}</p>}
+            {error && <p className="error-message">{error}</p>}
 
             <button type="submit" className="btn-primary" disabled={loading}>
               {loading ? 'Creating Account...' : 'Create Account'}
