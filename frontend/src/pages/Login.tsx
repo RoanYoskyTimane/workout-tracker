@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Link, useNavigate } from 'react-router-dom';
 import { authApi } from '../lib/api';
 import authHeroImg from '../assets/auth-hero.png';
+import './Login.css';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -34,13 +35,13 @@ const Login: React.FC = () => {
       <div className="auth-hero">
         <img src={authHeroImg} alt="Kinetic Performance" />
         <div className="auth-hero-overlay"></div>
-        <div style={{ position: 'absolute', bottom: '3rem', left: '3rem', color: 'white' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '1rem' }}>
+        <div className="hero-content">
+          <div className="hero-logo">
             <Activity size={32} color="var(--primary-light)" />
-            <span style={{ fontSize: '1.5rem', fontWeight: 800, letterSpacing: '0.1em' }}>KINETIC</span>
+            <span className="hero-logo-text">KINETIC</span>
           </div>
-          <h1 style={{ fontSize: '3rem', fontWeight: 700, lineHeight: 1.1 }}>PRECISION<br />PERFORMANCE</h1>
-          <p style={{ marginTop: '1rem', opacity: 0.8, fontSize: '1.1rem' }}>The future of human movement is here.</p>
+          <h1 className="hero-title">PRECISION<br />PERFORMANCE</h1>
+          <p className="hero-subtitle">The future of human movement is here.</p>
         </div>
       </div>
 
@@ -51,13 +52,13 @@ const Login: React.FC = () => {
           transition={{ duration: 0.6 }}
           className="auth-card"
         >
-          <div style={{ marginBottom: '2.5rem' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '2rem', marginBottom: '1.5rem', borderBottom: '1px solid #E0E0E0' }}>
-              <span style={{ paddingBottom: '0.75rem', borderBottom: '2px solid var(--primary)', fontWeight: 600 }}>Login</span>
-              <Link to="/register" style={{ paddingBottom: '0.75rem', color: 'var(--text-muted)', fontWeight: 500 }}>Sign Up</Link>
+          <div className="auth-header">
+            <div className="auth-tabs">
+              <span className="auth-tab active">Login</span>
+              <Link to="/register" className="auth-tab">Sign Up</Link>
             </div>
-            <h2 style={{ fontSize: '1.5rem', fontWeight: 700, marginBottom: '0.5rem' }}>Welcome Back.</h2>
-            <p style={{ color: 'var(--text-muted)' }}>Enter your credentials to access your performance dashboard.</p>
+            <h2 className="auth-title">Welcome Back.</h2>
+            <p className="auth-description">Enter your credentials to access your performance dashboard.</p>
           </div>
 
           <form onSubmit={handleSubmit}>
@@ -77,9 +78,9 @@ const Login: React.FC = () => {
             </div>
 
             <div className="input-group">
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <div className="password-label-wrapper">
                 <label htmlFor="password">Password</label>
-                <a href="#" style={{ fontSize: '0.75rem', fontWeight: 700, color: 'var(--primary)', marginBottom: '0.5rem' }}>FORGOT?</a>
+                <a href="#" className="forgot-link">FORGOT?</a>
               </div>
               <div className="input-wrapper">
                 <Lock className="input-icon" size={20} />
@@ -94,7 +95,7 @@ const Login: React.FC = () => {
               </div>
             </div>
 
-            {error && <p style={{ color: 'var(--error)', fontSize: '0.85rem', marginBottom: '1rem' }}>{error}</p>}
+            {error && <p className="error-message">{error}</p>}
 
             <button type="submit" className="btn-primary" disabled={loading}>
               {loading ? 'Authenticating...' : 'Get Started'}
