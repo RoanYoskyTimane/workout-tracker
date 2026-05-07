@@ -1,5 +1,6 @@
 import React from 'react';
 import Navbar from '../components/Navbar';
+import './DashboardLayout.css';
 
 interface Props {
   children: React.ReactNode;
@@ -7,9 +8,9 @@ interface Props {
 
 const DashboardLayout: React.FC<Props> = ({ children }) => {
   return (
-    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+    <div className="dashboard-layout">
       <Navbar />
-      <main style={{ flex: 1, padding: '0 2rem 2rem 2rem' }}>
+      <main className="dashboard-main">
         {children}
       </main>
     </div>
