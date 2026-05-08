@@ -1,0 +1,9 @@
+services:
+  backend:
+    build: .
+    container_name: kinetic
+    restart: on-failure
+    ports:
+      - "8083:8080"
+    env_file:
+      - .env
